@@ -1,0 +1,37 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+  "name": "C++",
+  "context": "..",
+  "dockerFile": "Dockerfile",
+  "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+  "extensions": [
+    // Language
+    "ms-vscode.cpptools",
+    // Auto-completion
+    "visualstudioexptteam.vscodeintellicode",
+    "christian-kohler.path-intellisense",
+    // Formatting
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    // Visualization
+    "shardulm94.trailing-spaces",
+    "coenraads.bracket-pair-colorizer-2",
+    "oderwat.indent-rainbow",
+    "mechatroner.rainbow-csv",
+    // Git
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    // Markdown
+    "davidanson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one",
+    // UML
+    "jebbs.plantuml",
+    // Tool
+    "gruntfuggly.todo-tree",
+    "alefragnani.bookmarks"
+  ],
+  "settings": {
+    "C_Cpp.clang_format_fallbackStyle": "Google",
+    "editor.formatOnSave": true
+  }
+}

@@ -1,0 +1,78 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558 for format details.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "g++ build active file",
+      "command": "/usr/bin/g++",
+      "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}.out"
+      ],
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "shell",
+      "label": "oj download",
+      "command": "bash",
+      "args": [
+        "-c",
+        "oj download `cat ${fileDirname}/task.json | jq -r .task_url`"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "oj test",
+      "dependsOn": "g++ build active file",
+      "command": "bash",
+      "args": [
+        "-c",
+        "oj test -c ${fileDirname}/${fileBasenameNoExtension}.out"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "shell",
+      "label": "atcoder-tools codegen",
+      "command": "bash",
+      "args": [
+        "-c",
+        "atcoder-tools codegen --lang cpp --without-login `cat ${fileDirname}/task.json | jq -r .task_url`"
+      ]
+    },
+    {
+      "type": "shell",
+      "label": "oj login",
+      "command": "bash",
+      "args": [
+        "-c",
+        "export `cat ${workspaceFolder}/.env | grep -v ^# | xargs` && oj login https://atcoder.jp -u $ATCODER_USER_ID -p $ATCODER_PASSWORD"
+      ]
+    },
+    {
+      "type": "shell",
+      "label": "oj submit",
+      "command": "bash",
+      "args": [
+        "-c",
+        "oj submit -y -l C++ `cat ${fileDirname}/task.json | jq -r .task_url` ${file}"
+      ]
+    }
+  ]
+}

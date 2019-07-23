@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# VSCode
+.vscode/settings.json
+
+# Evironment
+.env
+
+# Test
+test/

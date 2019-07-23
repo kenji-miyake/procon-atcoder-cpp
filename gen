@@ -1,0 +1,3 @@
+#!/bin/sh
+
+atcoder-helper gen --template-file template.cpp "$@"
